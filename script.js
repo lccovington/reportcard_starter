@@ -76,7 +76,8 @@ let a = document.querySelector("#fall-semester");
 let b = document.querySelector("#spring-semester");
 let c = document.querySelector("#winter-term");
 
-let d = document.querySelector("#report-card-table");
+const reportCardTable = document.querySelector("#report-card-table");
+const tableHeader = document.querySelector(".table-row");
 
 /**
  * SOLUTIONS FOR STUDENT INFO DOM UPDATES
@@ -134,7 +135,7 @@ function updateStudentGraduationYear(graduationYear) {
  * @param {String} url - a link to an image
  */
 function updateStudentImage(imageUrl) {
-  studentImage.setAttribute('src', imageUrl);
+  studentImage.setAttribute('src', studentInformation.imageUrl);
 }
 
 /**
@@ -157,16 +158,7 @@ function populateStudentInfo(studentInformationObject) {
  * This function should add a headers row to the report card table
  */
 function addReportCardHeaders(reportCardTableElement) {
-  reportCardTableElement.innerHTML += ` 
-    <div class="table-row table-header">
-      <h4 class="code-col">Code</h4>
-      <h4 class="name-col">Name</h4>
-      <h4 class="sem-col">Semester</h4>
-      <h4 class="cred-col">Credits</h4>
-      <h4 class="lett-col">Letter</h4>
-      <h4 class="pts-col">Points</h4>
-    </div>
-  `
+  reportCardTableElement.innerHTML += ``
 }
 
 /**
@@ -177,17 +169,12 @@ function addReportCardHeaders(reportCardTableElement) {
  * @param {Number} rowNum
  */
 function addCourseRowToReportCard(reportCardTableElement, course, rowNum) {
-  course.credits = course.credits 
   // update the code here with information about the course passed to this function
   reportCardTableElement.innerHTML += `
   <div class="table-row course-row row-${rowNum + 1} ${rowNum % 2 === 1 ? "odd" : "even"}">
-  <h4 class="code-col">${course.code}</h4>
-  <h4 class="name-col">${course.name}</h4>
-  <h4 class="sem-col">${course.semester}</h4>
-  <h4 class="cred-col">${course.credits} credits</h4>
-  <h4 class="lett-col">${course.grade}</h4>
+
   </div>
-  `
+`
 }
 
 /**
@@ -217,8 +204,8 @@ function updateReportCard(reportCardTableElement, currentSemester) {
   if (reportCardTableElement) reportCardTableElement.innerHTML = ``
 
   // add your code here
-  addReportCardHeaders(d)
-  addCourseRowToReportCard(d,studentData['Spring Semester'][0])
+  addReportCardHeaders(reportCardTable)
+  //addCourseRowToReportCard(reportCardTable,studentData['Spring Semester'][0])
 }
 
 /**
@@ -232,19 +219,16 @@ function updateReportCard(reportCardTableElement, currentSemester) {
  * If the dropdown classList doesn't contain the "closed" class, 'closeDropdown' function should add it.
  */
 function closeDropdown(dropdownElement) {
-  // code goes here
+
 }
 
 function openDropdown(dropdownElement) {
-  // code goes here
+
 }
 
 /**
  * This function should update the inner html of the dropdown label to be the current
  * value stored in the `semester` variable.
- *let x = document.querySelector(".semester-dropdown");
-let y = document.querySelector(".dropdown-button");
-let z = document.querySelector(".dropdown-label");
  */
 function updateDropdownLabel() {
   // code goes here
@@ -263,6 +247,8 @@ function addEventListeners(
   springSemesterElement,
   winterTermElement
 ) {
+
+  x.addEventListener("click", displayDate);
   // Add an event listener for the dropdown button that calls the openDropdown function with the correct DOM element
   // Add 3 event listeners - one for the fall semester option, the spring semester option, and the winter term option
   // Each callback function one should update the `semester` variable,
@@ -305,5 +291,5 @@ function calculateSemesterGpa(reportCardTableElement) {
 
 window.onload = function () {
   populateStudentInfo(studentInformation)
-  updateReportCard(d, )
+  //updateReportCard(reportCardTable)
 }
